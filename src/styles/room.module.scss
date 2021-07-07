@@ -1,53 +1,53 @@
-#page-room {
-  header {
-    padding: 24px;
-    border-bottom: 1px solid #e2e2e2;
+#pageRoom {
+  // header {
+  //   padding: 24px;
+  //   border-bottom: 1px solid #e2e2e2;
 
-    .content {
-      max-width: 1120x;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  //   .content {
+  //     max-width: 1120x;
+  //     margin: 0 auto;
+  //     display: flex;
+  //     justify-content: space-between;
+  //     align-items: center;
 
-      > img {
-        max-height: 45px;
-      }
+  //     > img {
+  //       max-height: 45px;
+  //     }
 
-      > div {
-        display: flex;
-        gap: 16px;
-      }
+  //     > div {
+  //       display: flex;
+  //       gap: 16px;
+  //     }
 
-      button {
-        height: 40px;
-      }
-    }
-  }
+  //     button {
+  //       height: 40px;
+  //     }
+  //   }
+  // }
 
   main {
-    max-width: 800px;
+    max-width: 90%;
     margin: 0 auto;
 
-    .room-title {
-      margin: 32px 0 24px;
+    .roomTitle {
+      margin: 3.2rem 0 2.4rem;
       display: flex;
       align-items: center;
 
       h1 {
         font-family: 'Poppins', sans-serif;
-        font-size: 24px;
+        font-size: 2.4rem;
         color: #29292e;
       }
 
       span {
-        margin-left: 16px;
+        margin-left: 1.6rem;
         background: var(--pink);
         border-radius: 9999px;
-        padding: 8px 16px;
+        padding: 0.8rem 1.6rem;
         color: white;
         font-weight: 500;
-        font-size: 14px;
+        font-size: 1.4rem;
       }
     }
 
@@ -55,40 +55,45 @@
       textarea {
         width: 100%;
         border: 0;
-        padding: 16px;
+        padding: 1.6rem;
         border-radius: 8px;
         background: #fefefe;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
         resize: vertical;
-        min-height: 130px;
+        min-height: 13rem;
       }
 
-      .form-footer {
+      .formFooter {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 16px;
+        margin-top: 1.6rem;
 
-        .user-info {
+        .userInfo {
           display: flex;
           align-items: center;
 
           img {
-            width: 32px;
-            height: 32px;
+            width: 3.2rem;
+            height: 3.2rem;
             border-radius: 50%;
           }
 
           span {
-            margin-left: 8px;
+            margin-left: 0.8rem;
             color: #29292e;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 1.4rem;
           }
         }
 
+        button {
+          color: white;
+          background-color: var(--purple);
+        }
+
         > span {
-          font-size: 14px;
+          font-size: 1.4rem;
           color: #737380;
           font-weight: 500;
 
@@ -97,7 +102,7 @@
             border: 0;
             color: var(--purple);
             text-decoration: underline;
-            font-size: 14px;
+            font-size: 1.4rem;
             font-weight: 500;
             cursor: pointer;
           }
@@ -105,8 +110,8 @@
       }
     }
 
-    .question-list {
-      margin-top: 32px;
+    .questionList {
+      margin-top: 3.2rem;
     }
   }
 }

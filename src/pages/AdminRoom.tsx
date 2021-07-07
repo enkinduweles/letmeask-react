@@ -1,28 +1,39 @@
 import { useHistory, useParams } from 'react-router-dom';
 
+import { useAuth } from '../hooks/useAuth';
+
 import { Button } from '../components/Button/Button';
 import { Question } from '../components/Question/Question';
 import { RoomCode } from '../components/RoomCode/RoomCode';
+import { HeaderMenu } from '../components/HeaderMenu/HeaderMenu';
 
-import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg';
 import answer from '../assets/images/answer.svg';
 import check from '../assets/images/check.svg';
 import { database } from '../services/firebase';
 
-import '../styles/room.scss';
 import { useRoom } from '../hooks/useRoom';
+import { useResponsivity } from '../hooks/useResponsivity';
+import { useEffect } from 'react';
+
+import classes from '../styles/room.module.scss';
 
 type RoomParams = {
   id: string;
 };
 
 export const AdminRoom = () => {
+  const { logOut } = useAuth();
   const history = useHistory();
+  const isOnMobileDevice = useResponsivity(768);
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
   const { questions, roomTitle } = useRoom(roomId);
+
+  useEffect(() => {
+    document.title = 'Letme ask - Room';
+  }, []);
 
   const closeRoomHandler = async () => {
     await database.ref(`rooms/${roomId}`).update({
@@ -49,29 +60,31 @@ export const AdminRoom = () => {
     });
   };
 
+  const signOut = async () => {
+    await logOut();
+
+    history.push('/');
+  };
+
   return (
-    <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Let me ask logo" />
-          <div>
-            <RoomCode code={params.id} />
-            <Button isOutlined onClick={closeRoomHandler}>
-              Close room
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div id={classes.pageRoom}>
+      <HeaderMenu isOnMobileDevice={isOnMobileDevice}>
+        <RoomCode code={params.id} />
+        <Button isOutlined onClick={closeRoomHandler}>
+          Encerrar sala
+        </Button>
+        <Button onClick={signOut}>Sair</Button>
+      </HeaderMenu>
 
       <main>
-        <div className="room-title">
+        <div className={classes.roomTitle}>
           <h1>
             Class {roomTitle}
             {questions.length > 0 && <span>{questions.length} questions</span>}
           </h1>
         </div>
 
-        <div className="question-list">
+        <div className={classes.questionList}>
           {questions.map((question) => {
             return (
               <Question

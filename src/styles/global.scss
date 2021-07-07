@@ -10,14 +10,65 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+
+  @media (max-width: 960px) {
+    font-size: 54%;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 50%;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 48%;
+  }
+}
+
 body {
   background: #f8f8f8;
   color: #29292e;
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body,
 input,
 button,
 textarea {
-  font: 400 16px 'Roboto', sans-serif;
+  font: 400 1.6rem 'Roboto', sans-serif;
+}
+
+.modal {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+  outline: none;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.opened-modal {
+  opacity: 1;
+}
+
+.closed-modal {
+  opacity: 0;
 }

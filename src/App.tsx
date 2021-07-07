@@ -10,13 +10,14 @@ function App() {
       <Route path="/" exact>
         <Home />
       </Route>
+
       <Route path="/rooms/new">
         <NewRoom />
       </Route>
+
       <Route path="/rooms/:id">
         <Room />
       </Route>
-
       <Route path="/admin/rooms/:id">
         <AdminRoom />
       </Route>

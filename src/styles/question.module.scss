@@ -5,7 +5,7 @@
   padding: 24px;
 
   & + .question {
-    margin-top: 8px;
+    margin-top: 0.8rem;
   }
 
   &.answered {
@@ -29,28 +29,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 2.4rem;
 
-    .user-info {
+    .userInfo {
       display: flex;
       align-items: center;
 
       img {
-        width: 32px;
-        height: 32px;
+        width: 3.2rem;
+        height: 3.2rem;
         border-radius: 50%;
       }
 
       span {
-        margin-left: 8px;
+        margin-left: 0.8rem;
         color: #737380;
-        font-size: 14px;
+        font-size: 1.6rem;
       }
     }
 
     > div {
       display: flex;
-      gap: 16px;
+      gap: 1.6rem;
     }
 
     button {
@@ -58,11 +58,16 @@
       background: transparent;
       cursor: pointer;
 
-      &.like-button {
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      &.likeButton {
         display: flex;
         align-items: flex-end;
         color: #737380;
-        gap: 8px;
+        gap: 0.8rem;
 
         &.liked {
           color: var(--purple);

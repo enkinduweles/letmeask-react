@@ -1,4 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
+import { useResponsivity } from '../hooks/useResponsivity';
+
 import { auth, firebase } from '../services/firebase';
 
 type User = {
@@ -10,6 +12,7 @@ type User = {
 type AuthContextType = {
   user: User | undefined;
   loginWithGoogle: () => Promise<void>;
+  logOut: () => Promise<void>;
 };
 
 type AuthContextProviderProps = {
@@ -20,6 +23,8 @@ export const authContext = createContext({} as AuthContextType);
 
 const AuthContextProvider = (props: AuthContextProviderProps) => {
   const [user, setUser] = useState<User>();
+
+  const hasMatchMediaQuery = useResponsivity();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -35,6 +40,8 @@ const AuthContextProvider = (props: AuthContextProviderProps) => {
           name: displayName,
           avatar: photoURL,
         });
+      } else {
+        setUser(undefined);
       }
     });
 
@@ -46,25 +53,50 @@ const AuthContextProvider = (props: AuthContextProviderProps) => {
   const loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    const loginResult = await auth.signInWithPopup(provider);
+    try {
+      if (hasMatchMediaQuery) {
+        localStorage.setItem('firstLogin', 'true');
 
-    if (loginResult.user) {
-      const { displayName, photoURL, uid } = loginResult.user;
+        await auth.signInWithRedirect(provider);
+      } else {
+        const loginResult = await auth.signInWithPopup(provider);
 
-      if (!displayName || !photoURL) {
-        throw new Error('Missing information from Google account');
+        if (loginResult.user) {
+          const { displayName, photoURL, uid } = loginResult.user;
+
+          if (!displayName || !photoURL) {
+            throw new Error('Missing information from Google account');
+          }
+
+          setUser({
+            id: uid,
+            name: displayName,
+            avatar: photoURL,
+          });
+        }
       }
+    } catch (error) {
+      console.log(error);
+      localStorage.remove('firstLogin');
+    }
+  };
 
-      setUser({
-        id: uid,
-        name: displayName,
-        avatar: photoURL,
-      });
+  const logOut = async () => {
+    try {
+      await auth.signOut();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <authContext.Provider value={{ user, loginWithGoogle }}>
+    <authContext.Provider
+      value={{
+        user,
+        loginWithGoogle,
+        logOut,
+      }}
+    >
       {props.children}
     </authContext.Provider>
   );

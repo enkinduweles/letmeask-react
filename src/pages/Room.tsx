@@ -1,16 +1,17 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Button } from '../components/Button/Button';
 import { Question } from '../components/Question/Question';
 import { RoomCode } from '../components/RoomCode/RoomCode';
+import { HeaderMenu } from '../components/HeaderMenu/HeaderMenu';
 
-import logoImg from '../assets/images/logo.svg';
+import { useResponsivity } from '../hooks/useResponsivity';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
 
-import '../styles/room.scss';
 import { useRoom } from '../hooks/useRoom';
+import classes from '../styles/room.module.scss';
 
 type RoomParams = {
   id: string;
@@ -19,11 +20,16 @@ type RoomParams = {
 export const Room = () => {
   const [newQuestion, setNewQuestion] = useState('');
 
-  const { user } = useAuth();
+  const isOnMobileDevice = useResponsivity(768);
+  const { user, loginWithGoogle } = useAuth();
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
   const { questions, roomTitle } = useRoom(roomId);
+
+  useEffect(() => {
+    document.title = 'Letme ask - Room';
+  }, []);
 
   const sendQuestionHandler = async (event: FormEvent) => {
     event.preventDefault();
@@ -67,7 +73,7 @@ export const Room = () => {
   };
 
   let userInfo = (
-    <div className="user-info">
+    <div className={classes.userInfo}>
       <img src={user?.avatar} alt={user?.name} />
       <span>{user?.name}</span>
     </div>
@@ -76,22 +82,22 @@ export const Room = () => {
   if (!user) {
     userInfo = (
       <span>
-        Para enviar uma pergunta, <button>faça seu login.</button>
+        Para enviar uma pergunta,{' '}
+        <button onClick={loginWithGoogle}>faça seu login.</button>
       </span>
     );
   }
 
   return (
-    <div id="page-room">
-      <header>
-        <div className="content">
-          <img src={logoImg} alt="Let me ask logo" />
+    <div id={classes.pageRoom}>
+      <HeaderMenu isOnMobileDevice={isOnMobileDevice}>
+        <div className={classes.content}>
           <RoomCode code={params.id} />
         </div>
-      </header>
+      </HeaderMenu>
 
       <main>
-        <div className="room-title">
+        <div className={classes.roomTitle}>
           <h1>
             Class {roomTitle}
             {questions.length > 0 && <span>{questions.length} questions</span>}
@@ -104,14 +110,14 @@ export const Room = () => {
             onChange={(event) => setNewQuestion(event.target.value)}
             value={newQuestion}
           />
-          <div className="form-footer">
+          <div className={classes.formFooter}>
             {userInfo}
             <Button type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
           </div>
         </form>
-        <div className="question-list">
+        <div className={classes.questionList}>
           {questions.map((question) => {
             return (
               <Question
@@ -123,7 +129,9 @@ export const Room = () => {
               >
                 {!question.isAnswered && (
                   <button
-                    className={`like-button ${question.likeId ? 'liked' : ''}`}
+                    className={`${classes.likedButton} ${
+                      question.likeId ? classes.liked : ''
+                    }`}
                     type="button"
                     aria-label="Mark as liked"
                     onClick={() =>

@@ -1,4 +1,4 @@
-.room-code {
+.roomCode {
   height: 40px;
   border-radius: 8px;
   overflow: hidden;
@@ -22,9 +22,24 @@
     display: block;
     align-self: center;
     flex: 1;
-    padding: 0 16px 0 12px;
-    width: 240px;
-    font-size: 14px;
+    padding: 0 1.6rem 0 1.2rem;
+    max-width: 24rem;
+    font-size: 1.4rem;
     font-weight: 500;
+
+    @media (max-width: 768px) {
+      flex: none;
+      width: 100%;
+      padding: 0;
+      font-size: 1.8rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    border: none;
+    background-color: transparent;
+    color: var(--purple);
+    height: auto;
+    padding: 1rem 1.2rem;
   }
 }
