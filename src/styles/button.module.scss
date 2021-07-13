@@ -15,14 +15,14 @@
 
   transition: filter 0.2s;
 
-  @media (max-width: 768px) {
-    color: var(--purple);
-    background-color: transparent;
-    font-size: 1.8rem;
-    height: auto;
-    padding: 1rem 1.2rem;
-    align-self: flex-start;
-  }
+  // @media (max-width: 768px) {
+  //   color: var(--purple);
+  //   background-color: transparent;
+  //   font-size: 1.8rem;
+  //   height: auto;
+  //   padding: 1rem 1.2rem;
+  //   align-self: flex-start;
+  // }
 
   img {
     margin-right: 0.8em;

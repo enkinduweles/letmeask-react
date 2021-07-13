@@ -61,6 +61,7 @@ export const useRoom = (roomId: string) => {
           };
         }
       );
+
       setRoomTitle(databaseRoom.title);
       setQuestions(parsedQuestions);
     });

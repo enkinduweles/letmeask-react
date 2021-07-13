@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { memo, ReactNode, useState } from 'react';
 import ReactModal from 'react-modal';
 
 import { MenuIcon } from './MenuIcon/MenuIcon';
@@ -12,7 +12,7 @@ type HeaderMenuProps = {
   isOnMobileDevice: boolean;
 };
 
-export const HeaderMenu = (props: HeaderMenuProps) => {
+export const HeaderMenu = memo((props: HeaderMenuProps) => {
   const { children, isOnMobileDevice } = props;
   const [showModal, setShowModal] = useState(false);
 
@@ -49,4 +49,4 @@ export const HeaderMenu = (props: HeaderMenuProps) => {
       </ReactModal>
     </header>
   );
-};
+});

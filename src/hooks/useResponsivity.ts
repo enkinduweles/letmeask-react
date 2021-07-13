@@ -3,7 +3,6 @@ import { useMediaQuery } from 'react-responsive';
 
 export const useResponsivity = (mediaQuery?: number) => {
   const mediaQueryChangeHandler = (match: boolean) => {
-    console.log(match);
     setHasMatchMediaQuery(match);
   };
 
@@ -15,6 +14,5 @@ export const useResponsivity = (mediaQuery?: number) => {
   const [hasMatchMediaQuery, setHasMatchMediaQuery] = useState(
     currentStatusMediaQuery
   );
-
   return hasMatchMediaQuery;
 };

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import copyImg from '../../assets/images/copy.svg';
 import { useResponsivity } from '../../hooks/useResponsivity';
 import classes from '../../styles/roomCode.module.scss';
@@ -6,7 +7,7 @@ type RoomCodeProps = {
   code: string;
 };
 
-export const RoomCode = (props: RoomCodeProps) => {
+export const RoomCode = memo((props: RoomCodeProps) => {
   const mediaQuery = useResponsivity(768);
 
   const copyRoomCodeToClipboard = () => {
@@ -29,4 +30,4 @@ export const RoomCode = (props: RoomCodeProps) => {
       <span>{props.code}</span>
     </button>
   );
-};
+});
